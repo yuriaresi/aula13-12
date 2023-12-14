@@ -1,9 +1,25 @@
-import express from "express";
-import cors from 'cors';
+import express, { Request, Response } from "express";
+import { AlunoController } from "./controllers/aluno.controller";
+
+
+
+
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+const alunoController = new AlunoController();
+
+// criar um novo aluno
+app.post("/aluno", alunoController.criarAluno);
+
+
+
+
+
+
+
+
 
 app.listen(3333, () => {
     console.log("A API está rodando!- http://localhost:3333");
