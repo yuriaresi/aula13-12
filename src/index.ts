@@ -13,6 +13,8 @@ const alunoController = new AlunoController();
 // criar um novo aluno
 app.post("/aluno", alunoController.criarAluno);
 
+app.get('/aluno/:id',alunoController.obterAluno)
+
 
 
 
