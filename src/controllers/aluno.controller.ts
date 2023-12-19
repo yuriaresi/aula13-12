@@ -45,35 +45,82 @@ export class AlunoController {
     }
 
     //Obter um aluno pelo ID
-    public async obterAluno (req:Request, res: Response) {
-        try{
+    public async obterAluno(req: Request, res: Response) {
+        try {
             //1- entrada
-            const {id} = req.params
+            const { id } = req.params
 
             //2- processamento
-             const aluno = await repository.aluno.findUnique(
-                {where: {
-                    id 
-                }
-            });
+            const aluno = await repository.aluno.findUnique(
+                {
+                    where: {
+                        id
+                    }
+                });
 
-            if(!aluno){
+            if (!aluno) {
                 return res.status(404).send({
-                    ok:false,
-                    message:'Aluno não encontrado'
-                })}
+                    ok: false,
+                    message: 'Aluno não encontrado'
+                })
+            }
 
             //3- saida
             return res.status(200).send(
                 {
-                    ok:true,
-                    message:'usuario obtido com sucesso',
+                    ok: true,
+                    message: 'usuario obtido com sucesso',
                     data: aluno
                 }
             )
 
         }
         catch (error: any) {
+            return res.status(500).send({
+                ok: false,
+                message: error.toString()
+            })
+        }
+    }
+
+    // DELETE- deletar um aluno
+
+    public async deletarAluno(req: Request, res: Response) {
+        try {
+            //1- entrada
+            const { id } = req.params;
+
+            //2- processamento
+            // verificar se o aluno existe, se não existe 404
+            const aluno = await repository.aluno.findUnique({
+                where: {
+                    id
+                }
+            });
+
+            if (!aluno) {
+                return res.status(404).send({
+                    ok: false,
+                    message: 'Aluno não encontrado'
+                })
+            }
+
+            // deletar o aluno
+
+            await repository.aluno.delete({
+                where: {
+                    id
+                }
+            })
+
+            //3- saida
+            return res.status(200).send({
+                ok: true,
+                message: 'Aluno deletado com sucesso.'
+            })
+
+
+        } catch (error: any) {
             return res.status(500).send({
                 ok: false,
                 message: error.toString()

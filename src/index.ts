@@ -15,7 +15,7 @@ app.post("/aluno", alunoController.criarAluno);
 
 app.get('/aluno/:id',alunoController.obterAluno)
 
-
+app.delete('/aluno/:id', alunoController.deletarAluno)
 
 
 
