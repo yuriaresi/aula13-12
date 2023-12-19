@@ -17,7 +17,9 @@ app.get('/aluno/:id',alunoController.obterAluno)
 
 app.delete('/aluno/:id', alunoController.deletarAluno)
 
+app.put ('/aluno/:id', alunoController.atualizarAluno)
 
+app.get('/aluno', alunoController.listarALunos)
 
 
 
